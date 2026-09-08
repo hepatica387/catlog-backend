@@ -1,7 +1,6 @@
 package com.felia.catlog.controller;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.felia.catlog.dto.member.ReservationsRequest;
 import com.felia.catlog.service.ReservationService;
@@ -26,7 +26,9 @@ import lombok.AllArgsConstructor;
 public class ReservationController {
   private final ReservationService service;
 
-  public ResponseEntity<Map<String, Integer>> createReservation(@Valid @RequestBody ReservationsRequest request) {
+  @PostMapping
+  public ResponseEntity<Map<String, Integer>> createReservation(
+      @Valid @RequestBody ReservationsRequest request) {
     Integer reservationId = service.createReservation(request);
 
     return ResponseEntity
