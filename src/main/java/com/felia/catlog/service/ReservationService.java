@@ -1,12 +1,14 @@
 package com.felia.catlog.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.felia.catlog.domain.Reservation;
+import com.felia.catlog.dto.member.ReservationListItemDto;
 import com.felia.catlog.dto.member.ReservationsRequest;
 import com.felia.catlog.repository.CatRepository;
 import com.felia.catlog.repository.MemberRepository;
@@ -26,6 +28,10 @@ public class ReservationService {
     this.repository = repository;
     this.memberRepository = memberRepository;
     this.catRepository = catRepository;
+  }
+
+  public List<ReservationListItemDto> getReservations(String userId) {
+    return null;
   }
 
   public Integer createReservation(ReservationsRequest request) {
