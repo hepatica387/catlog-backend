@@ -24,7 +24,7 @@ public class DiaryService {
   }
 
   @Transactional(readOnly = true)
-  public List<ButlerPostListItemResponse> getDiaryPpost() {
+  public List<ButlerPostListItemResponse> getDiaryPosts() {
     List<DiaryPost> posts = diaryPostRepository.findByIsPublicTrueOrderByCreatedAtDescPostIdDesc();
 
     if (posts.isEmpty()) {
