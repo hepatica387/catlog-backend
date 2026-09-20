@@ -3,14 +3,18 @@ package com.felia.catlog.service;
 import com.felia.catlog.domain.Member;
 import com.felia.catlog.dto.member.LoginRequest;
 import com.felia.catlog.dto.member.LoginResponse;
+import com.felia.catlog.dto.member.MemberInfoResponse;
 import com.felia.catlog.dto.member.SignupRequest;
 import com.felia.catlog.exception.DuplicateMemberException;
 import com.felia.catlog.repository.MemberRepository;
 
 import jakarta.transaction.Transactional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class MemberService {
@@ -58,6 +62,19 @@ public class MemberService {
         member.getUserId(),
         member.getUserName(),
         member.getEmail());
+  }
 
+  public MemberInfoResponse getFindByUserId(String userId) {
+
+    Member userInfo = memberRepository.findById(userId)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않은 회원입니다."));
+
+    return new MemberInfoResponse(
+        userInfo.getUserId(),
+        userInfo.getUserName(),
+        userInfo.getEmail(),
+        userInfo.getPhone(),
+        userInfo.getBirthDay(),
+        userInfo.getCreatedAt());
   }
 }
