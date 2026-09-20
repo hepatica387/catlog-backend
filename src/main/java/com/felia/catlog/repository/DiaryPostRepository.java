@@ -10,4 +10,6 @@ public interface DiaryPostRepository
     extends JpaRepository<DiaryPost, Long> {
 
   List<DiaryPost> findByIsPublicTrueOrderByCreatedAtDescPostIdDesc();
+
+  List<DiaryPost> findByUserIdOrderByCreatedAtDesc(String userId);
 }

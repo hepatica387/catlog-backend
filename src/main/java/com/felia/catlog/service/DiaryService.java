@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.felia.catlog.domain.DiaryPost;
 import com.felia.catlog.domain.Member;
 import com.felia.catlog.dto.member.ButlerPostListItemResponse;
+import com.felia.catlog.dto.member.DiaryPostResponse;
 import com.felia.catlog.repository.DiaryPostRepository;
 import com.felia.catlog.repository.MemberRepository;
 
@@ -46,5 +47,34 @@ public class DiaryService {
             post.getThumbnailUrl(),
             authorNames.getOrDefault(post.getUserId(), "알수없는 사용자")))
         .toList();
+  }
+
+  public List<DiaryPostResponse> getUserDiaryPosts(String userId){
+    List<DiaryPost> res = diaryPostRepository.findByUserIdOrderByCreatedAtDesc(userId);
+
+    if(res.isEmpty()){
+      return List.of();
+    }
+
+    List<String> userIds = res.stream().map(DiaryPost::getUserId).distinct().toList();
+
+    Map<String, String> authorNames = memberRepository.findAllById(userIds)
+        .stream()
+        .collect(Collectors.toMap(
+            Member::getUserId,
+            Member::getUserName));
+
+    return res.stream().map(
+      post -> new DiaryPostResponse(
+          post.getPostId(),
+          post.getTitle(),
+          post.getThumbnailUrl(),
+          authorNames.getOrDefault(post.getUserId(), "알수없는 사용자"),
+          post.getCreatedAt(),
+          post.getLikeCount(),
+          post.getViewCount()))
+      .toList();
+
+            
   }
 }
