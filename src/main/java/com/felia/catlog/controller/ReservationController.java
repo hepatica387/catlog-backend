@@ -18,7 +18,6 @@ import com.felia.catlog.dto.member.ReservationsRequest;
 import com.felia.catlog.service.ReservationService;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 
 /**

@@ -31,7 +31,17 @@ public class ReservationService {
   }
 
   public List<ReservationListItemDto> getReservations(String userId) {
-    return null;
+    return repository.findByUserIdOrderByReservationTimeDesc(userId).stream().map(
+      res -> new ReservationListItemDto(
+        res.getBranchId(),
+        res.getCatId(),
+        res.getReservationDate(),
+        res.getReservationTime(),
+        res.getPurpose(),
+        res.getStatus(),
+        res.getMemo()
+      )
+    ).toList();
   }
 
   public Integer createReservation(ReservationsRequest request) {
