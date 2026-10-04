@@ -1,5 +1,5 @@
--- MySQL 8.x. Select the target database before running this file.
--- Mirrors the current JPA entity mappings; no foreign keys are declared in the entities.
+-- MySQL 8.x용 스키마입니다. 실행 전에 대상 데이터베이스를 선택하세요.
+-- 현재 JPA 엔티티 매핑을 따르며, 엔티티에 외래 키가 선언되어 있지 않습니다.
 
 CREATE TABLE IF NOT EXISTS users (
     user_id VARCHAR(50) NOT NULL,
